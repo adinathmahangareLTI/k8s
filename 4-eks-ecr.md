@@ -50,4 +50,48 @@
  eksctl delete cluster --name adinath-cluster
 
 
+
+ ### Create one EC2 instance for pushing image on ECR
+ - install aws-cli
+   
+    ```bash
+    yum install unzip -y
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install
+    ```
+ - install docker
+
+   ```bash
+   yum install docker -y
+   docker info
+   systemctl start docker
+   systemctl enable docker
+   docker info
+   ```
+ - Create one image using below script
+   
+   ```
+   FROM ubuntu:22.04
+   RUN apt-get update && apt-get install -y apache2
+   RUN apt-get install -y tree openssh-server openssh-client
+   RUN cd /var/www/html
+   RUN echo "Welcome to Devops" > /var/www/html/index.html
+   RUN service apache2 start
+   ```
+ - create one Elastic Container Registry in AWS account >> view push commands >> implement all commands
+
+### pull images from already created cluster inside deployment
+- vim ecr-img-deployment.yml
+- kubectl apply -f ecr-img-deployment.yml
+- kubectl get pods
+- kubectl get deployment
+- kubectl describe deployment mahek-deployment
+
+
+### expose image using default service
+- kubectl expose deployment <deployment-name> --type=<service-type> --port=<port>
+- ex. kubectl expose deployment nginx-deployment --type=NodePort --port=80
+
+### access the deployed service using given port
  
