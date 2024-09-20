@@ -24,7 +24,7 @@
 - kubectl version --client
 
 ### Create EKS Cluster
-- eksctl create cluster --name adinath-cluster --region ap-south-1 --version 1.29 --vpc-public-subnets subnet-088d3cdb43e2fe46f,subnet-065909e8f402e86a7 --without-nodegroup
+- eksctl create cluster --name adinath-cluster --region ap-south-1 --version 1.29 --vpc-public-subnets subnet-044c44fef8814b390,subnet-065909e8f402e86a7 --without-nodegroup
 
 ### Create ssh-key
 - ssh-keygen
@@ -36,7 +36,7 @@
   --name my-node-group \
   --node-ami-family Ubuntu2004 \
   --node-type t2.small \
-  --subnet-ids subnet-088d3cdb43e2fe46f,subnet-065909e8f402e86a7 \
+  --subnet-ids subnet-044c44fef8814b390,subnet-065909e8f402e86a7 \
   --nodes 3 \
   --nodes-min 2 \
   --nodes-max 4 \
