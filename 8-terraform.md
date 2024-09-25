@@ -69,6 +69,67 @@ terraform init >> terraform validate >> terraform plan >> terraform apply
 6. terraform destroy : destroy/cleanup deployment
 7. terraform state show aws_instance.Dev_server : show details stored in Terraform state for the resource
 
+--------------------------------------------------------------------------------
+LAB02 :  EBS attachment 
+```
+provider "aws" {
+  region = "ap-south-1"
+}
+
+#security group
+resource "aws_security_group" "webserver-sg" {
+  name        = "webserver-sg"
+  description = "allow ssh and http"
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+}
+
+#create instance
+resource "aws_instance" "EC2-instance-1" {
+  ami               = "ami-08718895af4dfa033"
+  availability_zone = "ap-south-1a"
+  instance_type     = "t2.micro"
+  security_groups   = ["${aws_security_group.webserver-sg.name}"]
+  key_name          = "trf-kp"
+  tags = {
+    Name = "EC2-instance-1"
+  }
+}
+
+#create block storage
+resource "aws_ebs_volume" "data_vol" {
+  availability_zone = "ap-south-1a"
+  size              = 5
+}
+
+resource "aws_volume_attachment" "EC2-instance-1-vol" {
+  device_name = "/dev/sdc"
+  volume_id   = aws_ebs_volume.data_vol.id
+  instance_id = aws_instance.EC2-instance-1.id
+}
+
+```
+
 
 
 
