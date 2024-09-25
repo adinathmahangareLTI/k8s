@@ -25,6 +25,7 @@ Infrastructure as Code (IaC) is a method of managing and provisioning computing 
 2. aws provider
 
 --------------------------------------------------------------------------------------------------------------
+LAB01 : Creating EC2 instance using Terraform
 
 1. Install terraform
 	- sudo yum install -y yum-utils
@@ -55,6 +56,19 @@ resource "aws_instance" "Dev_server" {
 terraform init >> terraform validate >> terraform plan >> terraform apply
 
 8. enable SSH in security group
+9. Connect to the instance
+
+--------------------------------------------------------------------
+### Important commands in terraform:
+
+1. terraform fmt : format code per HCL canonical standard
+2. terraform validate : validate code for syntax
+3. terraform init : initialize directory, pull down providers
+4. terraform plan -out plan.out : use the plan.out file to deploy infrastructure
+5. terraform apply --auto-approve : apply changes without being prompted to enter "yes"
+6. terraform destroy : destroy/cleanup deployment
+7. terraform state show aws_instance.Dev_server : show details stored in Terraform state for the resource
+
 
 
 
