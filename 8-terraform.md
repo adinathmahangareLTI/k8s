@@ -234,6 +234,57 @@ resource "aws_eip_association" "eip_assoc" {
   allocation_id = "eipalloc-0cc9adb3c92ecc44b"
 }
 ```
+-----------------------------------------------------------------------------------------------
+- sonarcube : security analysis of devops : devSecOps
+LAB04:  Custom-size for root-volume for EC2 instance
+
+```
+provider "aws" {
+  region = "ap-south-1"
+}
+
+resource "aws_security_group" "root-sg" {
+  name        = "root-sg"
+  description = "security group for modifying root volume of instance"
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_instance" "test-volume" {
+  ami               = "ami-08718895af4dfa033"
+  availability_zone = "ap-south-1a"
+  instance_type     = "t2.micro"
+  security_groups   = [aws_security_group.root-sg.name]
+  key_name          = "trf-kp"
+
+  #root disk
+  root_block_device {
+    volume_size           = "26"
+    volume_type           = "gp2"
+    delete_on_termination = true
+  }
+}
+```
+--------------------------------------------------------------------------------------------------------------------------------
 
 
 
