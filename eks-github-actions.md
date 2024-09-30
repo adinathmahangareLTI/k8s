@@ -63,7 +63,7 @@ eksctl create cluster --name adinath-cluster-914 --region ap-south-1 --version 1
     type: LoadBalancer
   ```
 - in local git repo add file deploy.yml in .github/workflows
-```
+```yaml
 name: Deploy to ECR
 
 on: 
