@@ -67,4 +67,16 @@
       ```
       az aks create --resource-group adinath-resource-group --name adinath-cluster-1 --node-count 2 --enable-addons monitoring --generate-ssh-keys
       ```
-              
+      - Install kubectl
+      ```
+      az aks install-cli
+      ```
+      - Connect to the cluster (get the credentials for your AKS cluster and configure kubectl)
+      ```
+      az aks get-credentials --resource-group adinath-resource-group --name adinath-cluster-1
+      ```
+      - Check if nodes are created successfully
+      ```
+      kubectl get nodes
+      ```
+      
