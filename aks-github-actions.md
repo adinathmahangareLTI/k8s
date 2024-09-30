@@ -79,4 +79,13 @@
       ```
       kubectl get nodes
       ```
-      
+
+  - Get azure credentials by using below command in virtual machine (aks server)
+  ```
+  az ad sp create-for-rbac --name "myApp" --role contributor \
+                            --scopes /subscriptions/{subscription-id}/resourceGroups/{resource-group} \
+                            --sdk-auth
+  ```
+  - add all credentials script in between brackets in github repo >> secrets and variables >> actions >> add secret >> AZURE_CREDENTIALS
+  - create a new Azure Container Registry in Azure Dashboard
+  - 
