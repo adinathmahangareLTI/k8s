@@ -46,7 +46,7 @@ provider "aws" {
 resource "aws_instance" "Dev_server" {
   ami           = "ami-08718895af4dfa033"
   instance_type = "t2.micro"
-  key           = "trf-kp"
+  key_name      = "trf-kp"
 }
 ```
 5. Validate Terraform
